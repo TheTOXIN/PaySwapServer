@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
 
+
 @RestController
 @RequestMapping("users")
 public class UserController {
@@ -18,9 +19,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("reg")
-    public UUID reg(
-        @RequestBody RegDTO regDTO
-    ) {
+    public UUID reg(@RequestBody RegDTO regDTO) {
         return userService.reg(regDTO);
     }
 

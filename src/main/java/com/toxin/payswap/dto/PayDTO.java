@@ -5,15 +5,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-
+import java.util.UUID;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CardDTO implements Serializable {
+public class PayDTO implements Serializable {
 
-    private int code;
-    private String number;
-    private long money;
+    private UUID virtCardId;
+    private String hash;
 
 }

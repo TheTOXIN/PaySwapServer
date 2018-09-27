@@ -35,6 +35,6 @@ public class Swap {
 
     private long point;
 
-    private UUID hash;
+    private String hash;
 
 }

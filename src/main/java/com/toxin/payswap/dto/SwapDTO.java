@@ -13,11 +13,8 @@ import java.util.UUID;
 public class SwapDTO implements Serializable {
 
     private UUID userId;
-
     private long point;
-
     private String description;
-
     private long count;
 
 }

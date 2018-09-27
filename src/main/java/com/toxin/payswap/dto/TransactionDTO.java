@@ -12,10 +12,8 @@ import java.util.UUID;
 @AllArgsConstructor
 public class TransactionDTO implements Serializable {
 
-    private UUID hash;
-
+    private String hash;
     private long count;
-
     private UUID userId;
 
 }

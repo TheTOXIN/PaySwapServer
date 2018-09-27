@@ -20,17 +20,18 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private CardService cardService;
+
     @Transactional
     public UUID reg(RegDTO dto) {
         User user = new User();
-        Card card = new Card();
 
-        card.setCode(dto.getCard().getCode());
-        card.setNumber(dto.getCard().getNumber());
+        Card card = cardService.register(dto.getCard());
 
         user.setCard(card);
         user.setFirstName(dto.getFirstName());
-        user.setLastName(dto.getFirstName());
+        user.setLastName(dto.getLastName());
 
         cardRepository.save(card);
         userRepository.save(user);

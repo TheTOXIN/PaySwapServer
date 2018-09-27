@@ -28,18 +28,23 @@ public class TransactionService {
         User user = userRepository.findById(dto.getUserId()).orElseGet(null);
 
         swap.getUsers().add(user);
-
         user.setSwap(swap);
 
         VirtualCard virtualCard = swap.getVirtualCard();
-
         virtualCard.setBill(virtualCard.getBill() + dto.getCount());
 
         virtcardRepository.save(virtualCard);
+        virtcardRepository.flush();
+
         userRepository.save(user);
         swapRepository.save(swap);
 
-        return null;
+        VirtCardDTO cardDTO = new VirtCardDTO();
+
+        cardDTO.setBill(virtualCard.getBill());
+        cardDTO.setId(virtualCard.getId());
+
+        return cardDTO;
     }
 
 }

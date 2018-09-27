@@ -5,8 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.UUID;
 
 @Data
@@ -24,6 +22,6 @@ public class Card {
     private int code;
 
     @Column(nullable = false)
-    private int number;
+    private String number;
 
 }
