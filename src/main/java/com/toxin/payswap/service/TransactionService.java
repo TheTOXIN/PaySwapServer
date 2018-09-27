@@ -3,6 +3,7 @@ package com.toxin.payswap.service;
 import com.toxin.payswap.dto.TransactionDTO;
 import com.toxin.payswap.dto.VirtCardDTO;
 import com.toxin.payswap.enity.Swap;
+import com.toxin.payswap.enity.Transaction;
 import com.toxin.payswap.enity.User;
 import com.toxin.payswap.enity.VirtualCard;
 import com.toxin.payswap.repository.SwapRepository;
@@ -43,6 +44,10 @@ public class TransactionService {
 
         cardDTO.setBill(virtualCard.getBill());
         cardDTO.setId(virtualCard.getId());
+
+        Transaction transaction = new Transaction();
+        transaction.setVirtcard(virtualCard);
+        transaction.setCount(dto.getCount());
 
         return cardDTO;
     }

@@ -24,4 +24,6 @@ public class Card {
     @Column(nullable = false)
     private String number;
 
+    private long money;
+
 }

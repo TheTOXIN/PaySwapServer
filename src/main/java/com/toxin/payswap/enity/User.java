@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -31,5 +33,8 @@ public class User {
     @JoinColumn(name = "swap_id", referencedColumnName = "id")
     @ManyToOne
     private Swap swap;
+
+    @OneToMany(mappedBy = "user")
+    private List<Transaction> transactions = new ArrayList<>();
 
 }

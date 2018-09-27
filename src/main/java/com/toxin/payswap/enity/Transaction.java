@@ -23,4 +23,10 @@ public class Transaction {
     @JoinColumn(name = "virtcard_id", referencedColumnName = "id")
     private VirtualCard virtcard;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
+
+    private long count;
+
 }

@@ -14,6 +14,5 @@ public class CardDTO implements Serializable {
 
     private int code;
     private String number;
-    private long money;
 
 }

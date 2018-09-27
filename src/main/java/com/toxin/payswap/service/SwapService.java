@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.nio.charset.StandardCharsets;
-import java.util.UUID;
 
 @Service
 public class SwapService {
@@ -27,6 +26,9 @@ public class SwapService {
 
     @Autowired
     private VirtcardRepository virtcardRepository;
+
+    @Autowired
+    private VirtualCardService virtualCardService;
 
     @Transactional
     public String create(SwapDTO dto) {
@@ -57,9 +59,7 @@ public class SwapService {
 
         boolean isCommit = swap.getPoint() >= virtualCard.getBill();
 
-        virtualCard.setBill(virtualCard.getBill() - swap.getPoint());
-
-
+        if (isCommit) virtualCardService.process(virtualCard, swap);
 
         return isCommit;
     }
