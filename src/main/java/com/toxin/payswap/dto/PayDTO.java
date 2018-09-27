@@ -12,7 +12,6 @@ import java.util.UUID;
 @AllArgsConstructor
 public class PayDTO implements Serializable {
 
-    private UUID virtCardId;
     private String hash;
 
 }

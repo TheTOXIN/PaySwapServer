@@ -12,11 +12,14 @@ public class CardService {
     @Autowired
     private CardRepository cardRepository;
 
+    private static final long START_BILL = 1000;
+
     public Card register(CardDTO dto) {
         Card card = new Card();
 
         card.setCode(dto.getCode());
         card.setNumber(dto.getNumber());
+        card.setMoney(START_BILL);
 
         cardRepository.save(card);
 

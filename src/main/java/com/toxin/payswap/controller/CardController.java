@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping(name = "cards")
+@RequestMapping("cards")
 public class CardController {
 
     @Autowired

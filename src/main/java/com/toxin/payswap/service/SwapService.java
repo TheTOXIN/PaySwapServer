@@ -3,6 +3,7 @@ package com.toxin.payswap.service;
 import com.google.common.hash.Hashing;
 import com.toxin.payswap.dto.PayDTO;
 import com.toxin.payswap.dto.SwapDTO;
+import com.toxin.payswap.dto.TransactionDTO;
 import com.toxin.payswap.enity.Swap;
 import com.toxin.payswap.enity.User;
 import com.toxin.payswap.enity.VirtualCard;
@@ -30,6 +31,9 @@ public class SwapService {
     @Autowired
     private VirtualCardService virtualCardService;
 
+    @Autowired
+    private TransactionService transactionService;
+
     @Transactional
     public String create(SwapDTO dto) {
         String hash = getHash(dto.toString());
@@ -37,8 +41,6 @@ public class SwapService {
         User user = userRepository.findById(dto.getUserId()).orElseGet(null);
 
         VirtualCard virtualCard = new VirtualCard();
-        virtualCard.setBill(virtualCard.getBill() + dto.getCount());
-
         virtcardRepository.save(virtualCard);
 
         Swap swap = new Swap();
@@ -50,16 +52,28 @@ public class SwapService {
 
         swapRepository.save(swap);
 
+        TransactionDTO transactionDTO = new TransactionDTO();
+        transactionDTO.setCount(dto.getCount());
+        transactionDTO.setHash(hash);
+        transactionDTO.setUserId(dto.getUserId());
+
+        transactionService.add(transactionDTO);
+
         return hash;
     }
 
+    @Transactional
     public boolean pay(PayDTO payDTO) {
-        VirtualCard virtualCard = virtcardRepository.findById(payDTO.getVirtCardId()).orElseGet(null);
         Swap swap = swapRepository.findByHash(payDTO.getHash());
+        VirtualCard virtualCard = swap.getVirtualCard();
 
-        boolean isCommit = swap.getPoint() >= virtualCard.getBill();
+        boolean isCommit = virtualCard.getBill() >= swap.getPoint();
 
-        if (isCommit) virtualCardService.process(virtualCard, swap);
+        if (isCommit) {
+            virtualCardService.process(virtualCard, swap);
+            swap.setFinished(true);
+            swapRepository.save(swap);
+        }
 
         return isCommit;
     }

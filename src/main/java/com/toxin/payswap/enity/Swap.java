@@ -37,4 +37,6 @@ public class Swap {
 
     private String hash;
 
+    private boolean finished = false;
+
 }
